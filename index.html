@@ -8,7 +8,16 @@ function Clear() {
 }
 function Send() {
   if (document.getElementById("method").selectedIndex.value == "GET") {
-    $.get(url.value, function(data, status){})
+    $.get(url.value, function(data, status){
+      res.value = `${data}`
+    })
+  }
+    if (document.getElementById("method").selectedIndex.value == "POST") {
+      const data = JSON.parse(document.getElementById("PostData"))
+    $.post(url.value, data, function(data, status){
+      res.value = `${data}`
+      alert(status)
+    })
   }
 }
 </script>
@@ -20,10 +29,11 @@ function Send() {
 <option id="POST">POST</option>
 </select>
 <br>
-<input id="URL">
+<input id="URL" placeholder="URL">
+<input id="PostData" placeholder="Post Data">
 <br>
 <textarea id="Response" readonly="true">Response Will Appear Here</textarea>
 <br>
 <button >Send</button>
-<button onclcik="Clear()">Clear</button>
+<button onclick="Clear()">Clear</button>
 </body>
