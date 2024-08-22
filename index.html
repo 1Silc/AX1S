@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<script>
+const url = document.getElementById("URL").value
+const res = document.getElementById("Response").value
+function Clear() {
+  res = "Response Will Appear Here"
+  url = ""
+}
+function Send() {
+  if (document.getElementById("method").selectedIndex.value == "GET") {
+    $.get(url.value, function(data, status){})
+  }
+}
+</script>
+<title>AX1S</title>
+<body style="background-color:black">
+<font color="white"><h1>AX1S</h1></font>
+<select id="Method">
+<option id="GET">GET</option>
+<option id="POST">POST</option>
+</select>
+<br>
+<input id="URL">
+<br>
+<textarea id="Response" readonly="true">Response Will Appear Here</textarea>
+<br>
+<button >Send</button>
+<button onclcik="Clear()">Clear</button>
+</body>
