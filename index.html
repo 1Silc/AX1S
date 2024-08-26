@@ -14,7 +14,7 @@ function Send() {
     if (document.getElementById("method").selectedIndex.value == "POST") {
       const Http = new XMLHttpRequest();
       const url= document.getElementbyId("URL").value;
-      Http.open("GET", url);
+      Http.open("POST", url);
       Http.send();
 
       Http.onreadystatechange = (e) => {
@@ -32,7 +32,6 @@ function Send() {
 </select>
 <br>
 <input id="URL" placeholder="URL">
-<input id="PostData" placeholder="Post Data">
 <br>
 <textarea id="Response" readonly="true">Response Will Appear Here</textarea>
 <br>
