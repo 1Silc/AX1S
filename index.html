@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <script>
-const url = document.getElementById("URL").value
-const res = document.getElementById("Response").value
-function Clear() {
-  res = "Response Will Appear Here"
-  url = ""
-}
+
 function Send() {
   if (document.getElementById("method").selectedIndex.value == "GET") {
-    $.get(url.value, function(data, status){
-      res.value = `${data}`
-    })
+    const Http = new XMLHttpRequest();
+    const url='https://jsonplaceholder.typicode.com/posts';
+    Http.open("GET", url);
+    Http.send();
+
+    Http.onreadystatechange = (e) => {
+    document.getElementById("Response").value = Http.responseText
+    }
   }
     if (document.getElementById("method").selectedIndex.value == "POST") {
-      const data = JSON.parse(document.getElementById("PostData"))
-    $.post(url.value, data, function(data, status){
-      res.value = `${data}`
-      alert(status)
-    })
+      
   }
 }
 </script>
@@ -35,5 +31,4 @@ function Send() {
 <textarea id="Response" readonly="true">Response Will Appear Here</textarea>
 <br>
 <button >Send</button>
-<button onclick="Clear()">Clear</button>
 </body>
