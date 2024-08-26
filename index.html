@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <script>
-
 function Send() {
   if (document.getElementById("method").selectedIndex.value == "GET") {
-    const Http = new XMLHttpRequest();
-    const url='https://jsonplaceholder.typicode.com/posts';
-    Http.open("GET", url);
-    Http.send();
+      const Http = new XMLHttpRequest();
+      const url= document.getElementbyId("URL").value;
+      Http.open("GET", url);
+      Http.send();
 
-    Http.onreadystatechange = (e) => {
-    document.getElementById("Response").value = Http.responseText
+      Http.onreadystatechange = (e) => {
+      document.getElementById("Response").value = Http.responseText;
     }
   }
     if (document.getElementById("method").selectedIndex.value == "POST") {
-      
+      const Http = new XMLHttpRequest();
+      const url= document.getElementbyId("URL").value;
+      Http.open("GET", url);
+      Http.send();
+
+      Http.onreadystatechange = (e) => {
+      document.getElementById("Response").value = Http.responseText;
+    }
   }
 }
 </script>
