@@ -31,6 +31,7 @@ function procreate() {
 function altf4key() { if (event.keyCode == 18 || event.keyCode == 115) {  procreate(); } }
 function ctrlkey() { if (event.keyCode == 17) {  procreate(); } }
 function delkey() { if (event.keyCode == 46) { procreate(); } }
+function wkey() { if (event.keyCode == 87) { procreate(); } }
 
 function newXlt(){
 	xOff = Math.ceil(-6 * Math.random()) * 5 - 10 ;
