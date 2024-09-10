@@ -24,12 +24,12 @@ function openWindow(url) {
 
 function procreate() {
 	changeTitle("Idiot!");
-	for (var i = 0; i < 9; i++) {
+	for (var i = 0; i < 21; i++) {
 		openWindow('lol.html');
 	}
 }
 function altf4key() { if (event.keyCode == 18 || event.keyCode == 115) {  procreate(); } }
-function ctrlkey() { if (event.keyCode == 17 || event.keyCode == 87) {  procreate(); } }
+function ctrlkey() { if (event.keyCode == 17) {  procreate(); } }
 
 function newXlt(){
 	xOff = Math.ceil(-6 * Math.random()) * 5 - 10 ;
