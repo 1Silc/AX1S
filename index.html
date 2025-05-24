@@ -4,25 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
     <title>AX1S</title>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=EDGE">
-    <script>
-      (function() {
-        function signalGooglefcPresent() {
-          if (!window.frames['googlefcPresent']) {
-            if (document.body) {
-              const iframe = document.createElement('iframe');
-              iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;';
-              iframe.style.display = 'none';
-              iframe.name = 'googlefcPresent';
-              document.body.appendChild(iframe);
-            } else {
-              setTimeout(signalGooglefcPresent, 0);
-            }
-          }
-        }
-        signalGooglefcPresent();
-      })();
-    </script>
-    
     <style>
       [data-tab-content] {
         display: none!important;
