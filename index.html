@@ -1,3 +1,615 @@
 <html><head></head><body style="background-color:black;">
   <h1 style="color:white;">AX1S</h1><p style="color:white;">AX1S an XBox IP tool.</p>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>AX1S</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=EDGE">
+    <script>
+      (function() {
+        function signalGooglefcPresent() {
+          if (!window.frames['googlefcPresent']) {
+            if (document.body) {
+              const iframe = document.createElement('iframe');
+              iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;';
+              iframe.style.display = 'none';
+              iframe.name = 'googlefcPresent';
+              document.body.appendChild(iframe);
+            } else {
+              setTimeout(signalGooglefcPresent, 0);
+            }
+          }
+        }
+        signalGooglefcPresent();
+      })();
+    </script>
+    
+    <style>
+      [data-tab-content] {
+        display: none!important;
+      }
+      .active[data-tab-content] {
+        display: block!important;
+      }
+
+      .toast {
+          visibility: hidden;
+          min-width: 250px;
+          background-color: black;
+          color: white;
+          text-align: center;
+          padding: 16px;
+          position: fixed;
+          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1;
+          border-radius: 5px;
+      }
+
+      .show {
+          visibility: visible;
+          animation: fadeInOut 5s;
+      }
+
+      @keyframes fadeInOut {
+          0%, 100% { opacity: 0; }
+          10%, 90% { opacity: 1; }
+      }
+    </style>
+  <style></style><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="https://fundingchoicesmessages.google.com/i/ca-pub-2753492666371774?href=https%3A%2F%2Fax1s.vercel.app&amp;ers=2"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxX7dO1uEbROu0pTCChk2h0Ko741PLPN7Q9aEQ9faGpACwlYLP8mjH3hhBAH1JvLm0fI_aLQus_WBShdXdBKRMxaBb8mf1Ouf6m1i_FabLEESB1FC_esgO9OaA5voXNVoQwWy-f4?fccs=W1siQUtzUm9sOGpYdkFuUkJtcGVGa3pZd0VWci11NERhZUNGTTVkRTlrZGN6ME13bVZBRWF5dGtIS2kxS2tLRHJlY2hYM0dLbW1EWXlUOGZrbXJCZE1ZTjlsV3JfMVhpSzNSaEk5SnJlcU55SGFUcFhKV3ItVF81SEVCbzVVTmFGT2NTdUpOT0U0SXZKRzFoZ0FuLWplNVk3c1hSWUlWUGxqTDBBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NDgwNjA0ODgsMjkwMDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbN11dLCJodHRwczovL3BhcnR5aGF4LmNsdWIvIixudWxsLFtbOCwib2FLN2FGb19mLVUiXSxbOSwiZW4tVVMiXSxbMjMsIjE3NDczOTA5MDQiXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiIl0sWzI5LCJ0cnVlIl1dXQ"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxVhGD7KZTsb3UVUa4Dvd2Qr0SKTly0TwJarMYGVQ5xmk8ZiKXA-ZAafb0wKcdNJoGM0c28LM7Rk5MYiun7kxtz2emIMU6hL3KMA4gzznA5gK8hDOFqs4SEJp7jE3cnII5Oiv8lL?fccs=W1siQUtzUm9sOGpYdkFuUkJtcGVGa3pZd0VWci11NERhZUNGTTVkRTlrZGN6ME13bVZBRWF5dGtIS2kxS2tLRHJlY2hYM0dLbW1EWXlUOGZrbXJCZE1ZTjlsV3JfMVhpSzNSaEk5SnJlcU55SGFUcFhKV3ItVF81SEVCbzVVTmFGT2NTdUpOT0U0SXZKRzFoZ0FuLWplNVk3c1hSWUlWUGxqTDBBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NDgwNjA0ODgsOTYzMDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbNyw2XSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCwxXSwiaHR0cHM6Ly9wYXJ0eWhheC5jbHViLyIsbnVsbCxbWzgsIm9hSzdhRm9fZi1VIl0sWzksImVuLVVTIl0sWzIzLCIxNzQ3MzkwOTA0Il0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsIiJdLFsyOSwidHJ1ZSJdXV0"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxV0kJtMfa4_5eO_3O8PqqC3GZXabXzbXhpTAOBEjgG4C566lkgcfQHx2dEaA9GfiZp_L0CO0HIEf3bFSZqWs9r9_fJTAq_OmM9W79tI3OggGapRDlSmkLT8G54MieXycPBwQgv_?fccs=W1siQUtzUm9sOGpYdkFuUkJtcGVGa3pZd0VWci11NERhZUNGTTVkRTlrZGN6ME13bVZBRWF5dGtIS2kxS2tLRHJlY2hYM0dLbW1EWXlUOGZrbXJCZE1ZTjlsV3JfMVhpSzNSaEk5SnJlcU55SGFUcFhKV3ItVF81SEVCbzVVTmFGT2NTdUpOT0U0SXZKRzFoZ0FuLWplNVk3c1hSWUlWUGxqTDBBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NDgwNjA0ODksMzAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzcsNiw5XSxudWxsLDIsbnVsbCwiZW4iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCwxXSwiaHR0cHM6Ly9wYXJ0eWhheC5jbHViLyIsbnVsbCxbWzgsIm9hSzdhRm9fZi1VIl0sWzksImVuLVVTIl0sWzIzLCIxNzQ3MzkwOTA0Il0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsIiJdLFsyOSwidHJ1ZSJdXV0"></script></head>
+  <body oncontextmenu="return(false)" aria-hidden="false" style="padding: 0px;">   
+    <!-- Notifications -->
+    <div id="toast" class="show">
+      <div id="desc">
+        <p><span>Failed to Authenticate</span></p>
+      </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <!-- Notifications -->
+
+    <div id="wrapper" style="height: auto !important; min-height: 0px !important;">
+      <div id="main" style="height: auto !important;">
+        <div class="inner" style="height: auto !important;">
+          <header id="header">
+            <div id="image01" class="image">
+            </div><div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-2753492666371774" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;" data-ad-status="filled"><div id="aswift_1_host" style="border: none; height: 280px; width: 1200px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;"><iframe id="aswift_1" name="aswift_1" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:1200px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1200" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-2753492666371774&amp;output=html&amp;h=280&amp;adk=1774176439&amp;adf=2270238091&amp;pi=t.aa~a.2987427931~rp.4&amp;w=1200&amp;abgtt=6&amp;fwrn=4&amp;fwrnh=100&amp;lmt=1743464967&amp;rafmt=1&amp;to=qs&amp;pwprc=8663310551&amp;format=1200x280&amp;url=https%3A%2F%2Fax1s.vercel.app%2F&amp;fwr=0&amp;pra=3&amp;rpe=1&amp;resp_fmts=3&amp;wgl=1&amp;fa=40&amp;uach=WyJtYWNPUyIsIjE1LjMuMCIsImFybSIsIiIsIjEzNi4wLjcxMDMuMTE0IixudWxsLDAsbnVsbCwiNjQiLFtbIkNocm9taXVtIiwiMTM2LjAuNzEwMy4xMTQiXSxbIkdvb2dsZSBDaHJvbWUiLCIxMzYuMC43MTAzLjExNCJdLFsiTm90LkEvQnJhbmQiLCI5OS4wLjAuMCJdXSwwXQ..&amp;dt=1748060487080&amp;bpp=1&amp;bdt=1287&amp;idt=17&amp;shv=r20250521&amp;mjsv=m202505200101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Da5d40a6e68a18284%3AT%3D1747390904%3ART%3D1748050125%3AS%3DALNI_MZGsmgdlxlNoP240QX3ZssKBKg83g&amp;gpic=UID%3D000010202adb761c%3AT%3D1747390904%3ART%3D1748050125%3AS%3DALNI_MbSSyqXd329uyegOGLJyOOcKS3F0Q&amp;eo_id_str=ID%3Da108392e9175302f%3AT%3D1747390904%3ART%3D1748050125%3AS%3DAA-AfjaR2Tin0p2TitPa_TTPLkEF&amp;prev_fmts=0x0&amp;nras=2&amp;correlator=4081330055480&amp;frm=20&amp;pv=1&amp;u_tz=-240&amp;u_his=2&amp;u_h=900&amp;u_w=1440&amp;u_ah=814&amp;u_aw=1440&amp;u_cd=30&amp;u_sd=2&amp;dmc=8&amp;adx=113&amp;ady=118&amp;biw=1425&amp;bih=720&amp;scr_x=0&amp;scr_y=0&amp;eid=31092200%2C95353387%2C95361623%2C95360955&amp;oid=2&amp;pvsid=7247161470417289&amp;tmod=1651359945&amp;uas=3&amp;nvt=1&amp;fc=1920&amp;brdim=0%2C25%2C0%2C25%2C1440%2C25%2C1440%2C807%2C1440%2C720&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=128&amp;bc=31&amp;bz=1&amp;td=1&amp;tdf=2&amp;psd=W251bGwsbnVsbCxudWxsLDFd&amp;nt=1&amp;ifi=2&amp;uci=a!2&amp;fsb=1&amp;dtd=20" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="COSQkuOgu40DFZvbuAgdrGEWCQ" data-load-complete="true"></iframe></div></ins></div>
+            <ul id="buttons01" class="buttons">
+              <li data-tab-target="#home-section" class="active tab">
+                <a href="#home-section" class="button n01">
+                  Auth
+                </a>
+              </li>
+              <li data-tab-target="#main-section">
+                <a href="#main-section" class="button n02">
+                  Main
+                </a>
+              </li>
+              <li data-tab-target="#testing-section" class="hfm">
+                <a href="#testing-section" class="button n03">
+                  Risky
+                </a>
+              </li>
+              <li class="hfm">
+                <a href="https://cybermovies.tv/" class="button n04">
+                  Movies!
+                </a>
+              </li>
+              <li data-tab-target="#credits-section">
+                <a href="#credits-section" class="button n04">
+                  Credits
+                </a>
+              </li>
+              <span id="secret" class="secret">
+                <li data-tab-target="#secret-section">
+                  <a id="secret" href="#secret-section" class="button n04">
+                    Secret
+                  </a>
+                </li>            
+              </span>            
+            </ul>
+          </header>
+          <div class="tab-content">
+            <!-- ##################################################
+                                  Start Auth Tab
+              ##################################################### -->
+            <section id="home-section" data-tab-content="" class="active">
+              <div id="container01" class="container default">
+                <div class="wrapper">
+                  <div class="inner">
+                    <ul id="buttons02" class="buttons">  
+                      <li>
+                        <div class="wrp">
+                          <form action="/" method="get">
+                            <div class="displayflex">
+                              <input type="text" name="F56A8B1V5L71H9M4K7" id="gamertag" placeholder="Gamertag">
+                              <input type="text" name="GK8JT6FV3AY5L2HY1FYj4gk7u" id="xblToken" placeholder="XBL TOKEN">
+                            </div>
+                            <div class="displayflex">
+                              <button type="submit" class="button authorizebtn">Authorize</button>
+                            </div>
+                          </form>
+                        </div>
+                      </li>
+                      <li>
+                        <a href="api/authorize" class="button n03 authorizebtn">
+                          Oauth
+                        </a>
+                      </li> 
+                      <li>
+                        <a href="https://www.youtube.com/playlist?list=PLksu2sG-0EHO1HcJ9a71qEPVK1GQ9MISs" class="button n03 authorizebtn">
+                          Need Help?
+                        </a>
+                      </li> 
+                      <!--
+                      <li>
+                        <a id="devicecodebtn" class="button n03 authorizebtn">
+                          NOT DONE!
+                        </a>
+                        <ul id="device-auth-info"></ul>
+                      </li>
+                    --> 
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ##################################################
+                                  End Auth Tab
+              ##################################################### -->
+
+            <!-- ##################################################
+                                Start  Main  Tab
+              ##################################################### -->
+            <section id="main-section" data-tab-content="">
+              <div id="container03" class="container default">
+                <div class="wrapper">
+                  <div class="inner">
+                    <ul id="buttons04" class="style1 buttons">
+                      <li>
+                        <a href="" data-api-command="xboxantipartytool" class="button n01">
+                          Anti Party Tool
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartyunkickable" class="button n02">
+                          Unkickable
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="reversekick" class="button n02">
+                          Reverse kick
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxhideparty" class="button n03">
+                          Hide Party
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartyjoinable" class="button n01">
+                          Open Party
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="crashparty" class="button n02">
+                          Crash Party
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartyinviteonly" class="button n03">
+                          Invite Only
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartykillgp" class="button n01">
+                          Kill LFG
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxantijoin" class="button n02">
+                          Anti Join
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartydisconnected" class="button n03">
+                          Status Disconnected
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartyconnecting" class="button n01">
+                          Status Connecting
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxpartyconnected" class="button n02">
+                          Status Normal
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ##################################################
+                                  End main Tab
+              ##################################################### -->
+
+            <!-- ##################################################
+                                  Start Risky Tab
+              ##################################################### -->
+            <section id="testing-section" data-tab-content="" class="hfm">
+              <div id="container03" class="container default">
+                <div class="wrapper">
+                  <div class="inner">
+                    <ul id="buttons04" class="style1 buttons">
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamegtavi" class="button n01">
+                          GTA 6
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamecps" class="button n01">
+                          Cotton Picking Sim
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgament" class="button n02">
+                          N##### Tycoon
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamebc2" class="button n03">
+                          Call Of Booty
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamevirus" class="button n01">
+                          Virus
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamepornhub" class="button n02">
+                          P###hub
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgameclubpenquin" class="button n03">
+                          Club Penquin
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamepss" class="button n01">
+                          Prison Shower Sim
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamemoe" class="button n02">
+                          Minecraft Ohio Edition
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamexboxsymbol" class="button n03">
+                          Xbox Symbol
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgamemms" class="button n01">
+                          Melon Munching Sim
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxspoofgameblank" class="button n01">
+                          BLANK
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="right">
+                <div class="inner positionab">
+                  <ul id="buttons02" class="buttons rightbtngrp">
+                    <li>
+                      <div class="wrp">
+                        <form id="Gamespoof" action="#" method="get">
+                          <div class="displayflex">
+                            <input type="text" name="gameid" id="gameid" placeholder="GameID">
+                          </div>
+                          <div class="displayflex">
+                            <button type="submit" class="button authorizebtn">Spoof</button>
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            </section> 
+            <!-- ##################################################
+                                  End Risky Tab
+              ##################################################### -->
+
+            <!-- ##################################################
+                                  Start Decrypt Tab
+              ##################################################### -->
+            <section id="decrypt-section" data-tab-content="" class="hfm">
+              <div id="container04" class="container default">
+                <div class="wrapper">
+                  <div class="inner">
+                    <div class="rowsec">
+                      <div class="w20">
+                      </div>
+                      <div class="w80toggle" id="hide">
+                        <h4 class="gd">Game Decryption</h4>
+                        <ul class="new list flist">
+                          <li><span class="fl1">Gamertag</span></li>
+                          <li><span class="fl2">xuid</span></li>
+                          <li><span class="fl3">ips</span></li>
+                        </ul>
+                        <ul class="new list llist">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ##################################################
+                                  End Decrypt Tab
+              ##################################################### -->
+
+            <!-- ##################################################
+                                  Start Credits Tab
+              ##################################################### -->
+            <section id="credits-section" data-tab-content="">
+              <div id="container04" class="container default">
+                <div class="wrapper">
+                </div>
+              </div>
+            </section>
+            <!-- ##################################################
+                                  End Credits Tab
+              ##################################################### -->
+
+            <!-- ##################################################
+                                  Start Secret Tab
+              ##################################################### -->
+            <section id="secret-section" data-tab-content="">
+              <div id="container03" class="container default">
+                <div class="wrapper">
+                  <div class="inner">
+                    <ul id="buttons04" class="style1 buttons">
+                      <li>
+                        <a href="" data-api-command="xboxpartyipspoofer" class="button n01">
+                          Spoof IP
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="xboxgetfriendslist" class="button n01">
+                          get friends list
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" data-api-command="grabxboxparty" class="button n02">
+                          Grab party test
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n03">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n01">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n02">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n03">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n01">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n02">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n03">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n01">
+                          -
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" class="button n02">
+                          -
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- ##################################################
+                                  End Secret Tab
+              ##################################################### -->
+          <div class="google-anno-skip google-anno-sc" tabindex="0" role="link" aria-label="Gaming consoles" data-google-vignette="false" data-google-interstitial="false" style="color-scheme: initial !important; forced-color-adjust: initial !important; mask: initial !important; math-depth: initial !important; position: initial !important; position-anchor: initial !important; text-size-adjust: initial !important; appearance: initial !important; color: rgb(255, 255, 255) !important; direction: inherit !important; font-family: Roboto !important; font-feature-settings: initial !important; font-kerning: initial !important; font-optical-sizing: initial !important; font-palette: initial !important; font-size: 21.3333px !important; font-size-adjust: initial !important; font-stretch: initial !important; font-style: initial !important; font-synthesis: initial !important; font-variant: initial !important; font-variation-settings: initial !important; font-weight: 500 !important; position-area: initial !important; text-orientation: inherit !important; text-rendering: initial !important; text-spacing-trim: initial !important; -webkit-font-smoothing: initial !important; -webkit-locale: initial !important; -webkit-text-orientation: initial !important; -webkit-writing-mode: initial !important; writing-mode: inherit !important; zoom: initial !important; accent-color: initial !important; place-content: initial !important; place-items: initial !important; place-self: initial !important; alignment-baseline: initial !important; anchor-name: initial !important; anchor-scope: initial !important; animation-composition: initial !important; animation: initial !important; app-region: initial !important; aspect-ratio: initial !important; backdrop-filter: initial !important; backface-visibility: initial !important; background: rgb(11, 87, 208) !important; background-blend-mode: initial !important; baseline-shift: initial !important; baseline-source: initial !important; block-size: initial !important; border-block: initial !important; border: 1px solid rgb(215, 215, 215) !important; border-radius: 20px !important; border-collapse: initial !important; border-end-end-radius: initial !important; border-end-start-radius: initial !important; border-inline: initial !important; border-start-end-radius: initial !important; border-start-start-radius: initial !important; inset: initial !important; box-decoration-break: initial !important; box-shadow: initial !important; box-sizing: initial !important; break-after: initial !important; break-before: initial !important; break-inside: initial !important; buffered-rendering: initial !important; caption-side: initial !important; caret-color: initial !important; clear: initial !important; clip: initial !important; clip-path: initial !important; clip-rule: initial !important; color-interpolation: initial !important; color-interpolation-filters: initial !important; color-rendering: initial !important; columns: initial !important; column-fill: initial !important; gap: initial !important; column-rule: initial !important; column-span: initial !important; contain: initial !important; contain-intrinsic-block-size: initial !important; contain-intrinsic-size: initial !important; contain-intrinsic-inline-size: initial !important; container: initial !important; content: initial !important; content-visibility: initial !important; counter-increment: initial !important; counter-reset: initial !important; counter-set: initial !important; cursor: pointer !important; cx: initial !important; cy: initial !important; d: initial !important; display: inline-block !important; dominant-baseline: initial !important; dynamic-range-limit: initial !important; empty-cells: initial !important; field-sizing: initial !important; fill: initial !important; fill-opacity: initial !important; fill-rule: initial !important; filter: initial !important; flex: initial !important; flex-flow: initial !important; float: initial !important; flood-color: initial !important; flood-opacity: initial !important; grid: initial !important; grid-area: initial !important; height: initial !important; hyphenate-character: initial !important; hyphenate-limit-chars: initial !important; hyphens: initial !important; image-orientation: initial !important; image-rendering: initial !important; initial-letter: initial !important; inline-size: initial !important; inset-block: initial !important; inset-inline: initial !important; interpolate-size: initial !important; isolation: initial !important; letter-spacing: initial !important; lighting-color: initial !important; line-break: initial !important; line-height: initial !important; list-style: initial !important; margin-block: initial !important; margin-bottom: initial !important; margin-inline: initial !important; margin-left: initial !important; margin-right: initial !important; margin-top: -3px !important; marker: initial !important; mask-type: initial !important; math-shift: initial !important; math-style: initial !important; max-block-size: initial !important; max-height: initial !important; max-inline-size: initial !important; max-width: initial !important; min-block-size: initial !important; min-height: initial !important; min-inline-size: initial !important; min-width: initial !important; mix-blend-mode: initial !important; object-fit: initial !important; object-position: initial !important; object-view-box: initial !important; offset: initial !important; opacity: initial !important; order: initial !important; orphans: initial !important; outline: initial !important; outline-offset: initial !important; overflow-anchor: initial !important; overflow-block: initial !important; overflow-clip-margin: initial !important; overflow-inline: initial !important; overflow-wrap: initial !important; overflow: initial !important; overlay: initial !important; overscroll-behavior-block: initial !important; overscroll-behavior-inline: initial !important; overscroll-behavior: initial !important; padding-block: initial !important; padding: 3px 7px 3px 6px !important; padding-inline: initial !important; page: initial !important; page-orientation: initial !important; paint-order: initial !important; perspective: initial !important; perspective-origin: initial !important; pointer-events: initial !important; position-try: initial !important; position-visibility: initial !important; print-color-adjust: initial !important; quotes: initial !important; r: initial !important; resize: initial !important; rotate: initial !important; ruby-align: initial !important; ruby-position: initial !important; rx: initial !important; ry: initial !important; scale: initial !important; scroll-behavior: initial !important; scroll-initial-target: initial !important; scroll-margin-block: initial !important; scroll-margin: initial !important; scroll-margin-inline: initial !important; scroll-marker-group: initial !important; scroll-padding-block: initial !important; scroll-padding: initial !important; scroll-padding-inline: initial !important; scroll-snap-align: initial !important; scroll-snap-stop: initial !important; scroll-snap-type: initial !important; scroll-timeline: initial !important; scrollbar-color: initial !important; scrollbar-gutter: initial !important; scrollbar-width: initial !important; shape-image-threshold: initial !important; shape-margin: initial !important; shape-outside: initial !important; shape-rendering: initial !important; size: initial !important; speak: initial !important; stop-color: initial !important; stop-opacity: initial !important; stroke: initial !important; stroke-dasharray: initial !important; stroke-dashoffset: initial !important; stroke-linecap: initial !important; stroke-linejoin: initial !important; stroke-miterlimit: initial !important; stroke-opacity: initial !important; stroke-width: initial !important; tab-size: initial !important; table-layout: initial !important; text-align: inherit !important; text-align-last: initial !important; text-anchor: initial !important; text-box: initial !important; text-combine-upright: initial !important; text-decoration: initial !important; text-decoration-skip-ink: initial !important; text-emphasis: initial !important; text-emphasis-position: initial !important; text-indent: initial !important; text-overflow: initial !important; text-shadow: initial !important; text-transform: initial !important; text-underline-offset: initial !important; text-underline-position: initial !important; text-wrap: initial !important; timeline-scope: initial !important; touch-action: initial !important; transform: initial !important; transform-box: initial !important; transform-origin: initial !important; transform-style: initial !important; transition: initial !important; translate: initial !important; user-select: initial !important; vector-effect: initial !important; vertical-align: initial !important; view-timeline: initial !important; view-transition-class: initial !important; view-transition-name: initial !important; visibility: inherit !important; border-spacing: initial !important; -webkit-box-align: initial !important; -webkit-box-decoration-break: initial !important; -webkit-box-direction: initial !important; -webkit-box-flex: initial !important; -webkit-box-ordinal-group: initial !important; -webkit-box-orient: initial !important; -webkit-box-pack: initial !important; -webkit-box-reflect: initial !important; -webkit-line-break: initial !important; -webkit-line-clamp: initial !important; -webkit-mask-box-image: initial !important; -webkit-rtl-ordering: initial !important; -webkit-ruby-position: initial !important; -webkit-tap-highlight-color: initial !important; -webkit-text-combine: initial !important; -webkit-text-decorations-in-effect: initial !important; -webkit-text-fill-color: unset !important; -webkit-text-security: initial !important; -webkit-text-stroke: initial !important; -webkit-user-drag: initial !important; white-space-collapse: initial !important; widows: initial !important; width: initial !important; will-change: initial !important; word-break: initial !important; word-spacing: initial !important; x: initial !important; y: initial !important; z-index: initial !important;"><span style="color-scheme: initial !important; forced-color-adjust: initial !important; mask: initial !important; math-depth: initial !important; position: initial !important; position-anchor: initial !important; text-size-adjust: initial !important; appearance: initial !important; color: inherit !important; direction: inherit !important; font-family: inherit !important; font-feature-settings: initial !important; font-kerning: initial !important; font-optical-sizing: initial !important; font-palette: initial !important; font-size: inherit !important; font-size-adjust: initial !important; font-stretch: initial !important; font-style: initial !important; font-synthesis: initial !important; font-variant: initial !important; font-variation-settings: initial !important; font-weight: inherit !important; position-area: initial !important; text-orientation: inherit !important; text-rendering: initial !important; text-spacing-trim: initial !important; -webkit-font-smoothing: initial !important; -webkit-locale: initial !important; -webkit-text-orientation: initial !important; -webkit-writing-mode: initial !important; writing-mode: inherit !important; zoom: initial !important; accent-color: initial !important; place-content: initial !important; place-items: initial !important; place-self: initial !important; alignment-baseline: initial !important; anchor-name: initial !important; anchor-scope: initial !important; animation-composition: initial !important; animation: initial !important; app-region: initial !important; aspect-ratio: initial !important; backdrop-filter: initial !important; backface-visibility: initial !important; background: initial !important; background-blend-mode: initial !important; baseline-shift: initial !important; baseline-source: initial !important; block-size: initial !important; border-block: initial !important; border: initial !important; border-radius: initial !important; border-collapse: initial !important; border-end-end-radius: initial !important; border-end-start-radius: initial !important; border-inline: initial !important; border-start-end-radius: initial !important; border-start-start-radius: initial !important; inset: initial !important; box-decoration-break: initial !important; box-shadow: initial !important; box-sizing: initial !important; break-after: initial !important; break-before: initial !important; break-inside: initial !important; buffered-rendering: initial !important; caption-side: initial !important; caret-color: initial !important; clear: initial !important; clip: initial !important; clip-path: initial !important; clip-rule: initial !important; color-interpolation: initial !important; color-interpolation-filters: initial !important; color-rendering: initial !important; columns: initial !important; column-fill: initial !important; gap: initial !important; column-rule: initial !important; column-span: initial !important; contain: initial !important; contain-intrinsic-block-size: initial !important; contain-intrinsic-size: initial !important; contain-intrinsic-inline-size: initial !important; container: initial !important; content: initial !important; content-visibility: initial !important; counter-increment: initial !important; counter-reset: initial !important; counter-set: initial !important; cursor: inherit !important; cx: initial !important; cy: initial !important; d: initial !important; display: inline-block !important; dominant-baseline: initial !important; dynamic-range-limit: initial !important; empty-cells: initial !important; field-sizing: initial !important; fill: initial !important; fill-opacity: initial !important; fill-rule: initial !important; filter: initial !important; flex: initial !important; flex-flow: initial !important; float: initial !important; flood-color: initial !important; flood-opacity: initial !important; grid: initial !important; grid-area: initial !important; height: initial !important; hyphenate-character: initial !important; hyphenate-limit-chars: initial !important; hyphens: initial !important; image-orientation: initial !important; image-rendering: initial !important; initial-letter: initial !important; inline-size: initial !important; inset-block: initial !important; inset-inline: initial !important; interpolate-size: initial !important; isolation: initial !important; letter-spacing: initial !important; lighting-color: initial !important; line-break: initial !important; line-height: initial !important; list-style: initial !important; margin-block: initial !important; margin: initial !important; margin-inline: initial !important; marker: initial !important; mask-type: initial !important; math-shift: initial !important; math-style: initial !important; max-block-size: initial !important; max-height: initial !important; max-inline-size: initial !important; max-width: initial !important; min-block-size: initial !important; min-height: initial !important; min-inline-size: initial !important; min-width: initial !important; mix-blend-mode: initial !important; object-fit: initial !important; object-position: initial !important; object-view-box: initial !important; offset: initial !important; opacity: initial !important; order: initial !important; orphans: initial !important; outline: initial !important; outline-offset: initial !important; overflow-anchor: initial !important; overflow-block: initial !important; overflow-clip-margin: initial !important; overflow-inline: initial !important; overflow-wrap: initial !important; overflow: initial !important; overlay: initial !important; overscroll-behavior-block: initial !important; overscroll-behavior-inline: initial !important; overscroll-behavior: initial !important; padding-block: initial !important; padding-bottom: initial !important; padding-inline: initial !important; padding-left: 3px !important; padding-right: initial !important; padding-top: initial !important; page: initial !important; page-orientation: initial !important; paint-order: initial !important; perspective: initial !important; perspective-origin: initial !important; pointer-events: initial !important; position-try: initial !important; position-visibility: initial !important; print-color-adjust: initial !important; quotes: initial !important; r: initial !important; resize: initial !important; rotate: initial !important; ruby-align: initial !important; ruby-position: initial !important; rx: initial !important; ry: initial !important; scale: initial !important; scroll-behavior: initial !important; scroll-initial-target: initial !important; scroll-margin-block: initial !important; scroll-margin: initial !important; scroll-margin-inline: initial !important; scroll-marker-group: initial !important; scroll-padding-block: initial !important; scroll-padding: initial !important; scroll-padding-inline: initial !important; scroll-snap-align: initial !important; scroll-snap-stop: initial !important; scroll-snap-type: initial !important; scroll-timeline: initial !important; scrollbar-color: initial !important; scrollbar-gutter: initial !important; scrollbar-width: initial !important; shape-image-threshold: initial !important; shape-margin: initial !important; shape-outside: initial !important; shape-rendering: initial !important; size: initial !important; speak: initial !important; stop-color: initial !important; stop-opacity: initial !important; stroke: initial !important; stroke-dasharray: initial !important; stroke-dashoffset: initial !important; stroke-linecap: initial !important; stroke-linejoin: initial !important; stroke-miterlimit: initial !important; stroke-opacity: initial !important; stroke-width: initial !important; tab-size: initial !important; table-layout: initial !important; text-align: inherit !important; text-align-last: initial !important; text-anchor: initial !important; text-box: initial !important; text-combine-upright: initial !important; text-decoration: initial !important; text-decoration-skip-ink: initial !important; text-emphasis: initial !important; text-emphasis-position: initial !important; text-indent: initial !important; text-overflow: initial !important; text-shadow: initial !important; text-transform: initial !important; text-underline-offset: initial !important; text-underline-position: initial !important; text-wrap: initial !important; timeline-scope: initial !important; touch-action: initial !important; transform: initial !important; transform-box: initial !important; transform-origin: initial !important; transform-style: initial !important; transition: initial !important; translate: initial !important; user-select: initial !important; vector-effect: initial !important; vertical-align: initial !important; view-timeline: initial !important; view-transition-class: initial !important; view-transition-name: initial !important; visibility: inherit !important; border-spacing: initial !important; -webkit-box-align: initial !important; -webkit-box-decoration-break: initial !important; -webkit-box-direction: initial !important; -webkit-box-flex: initial !important; -webkit-box-ordinal-group: initial !important; -webkit-box-orient: initial !important; -webkit-box-pack: initial !important; -webkit-box-reflect: initial !important; -webkit-line-break: initial !important; -webkit-line-clamp: initial !important; -webkit-mask-box-image: initial !important; -webkit-rtl-ordering: initial !important; -webkit-ruby-position: initial !important; -webkit-tap-highlight-color: initial !important; -webkit-text-combine: initial !important; -webkit-text-decorations-in-effect: initial !important; -webkit-text-fill-color: unset !important; -webkit-text-security: initial !important; -webkit-text-stroke: initial !important; -webkit-user-drag: initial !important; white-space-collapse: initial !important; widows: initial !important; width: initial !important; will-change: initial !important; word-break: initial !important; word-spacing: initial !important; x: initial !important; y: initial !important; z-index: initial !important;"><svg viewBox="0 -960 960 960" width="21.3333px" height="21.3333px" style="color-scheme: initial !important; forced-color-adjust: initial !important; mask: initial !important; math-depth: initial !important; position: relative !important; position-anchor: initial !important; text-size-adjust: initial !important; appearance: initial !important; color: initial !important; font: initial !important; font-palette: initial !important; font-synthesis: initial !important; position-area: initial !important; text-orientation: initial !important; text-rendering: initial !important; text-spacing-trim: initial !important; -webkit-font-smoothing: initial !important; -webkit-locale: initial !important; -webkit-text-orientation: initial !important; -webkit-writing-mode: initial !important; writing-mode: initial !important; zoom: initial !important; accent-color: initial !important; place-content: initial !important; place-items: initial !important; place-self: initial !important; alignment-baseline: initial !important; anchor-name: initial !important; anchor-scope: initial !important; animation-composition: initial !important; animation: initial !important; app-region: initial !important; aspect-ratio: initial !important; backdrop-filter: initial !important; backface-visibility: initial !important; background: initial !important; background-blend-mode: initial !important; baseline-shift: initial !important; baseline-source: initial !important; block-size: initial !important; border-block: initial !important; border: 0px !important; border-radius: initial !important; border-collapse: initial !important; border-end-end-radius: initial !important; border-end-start-radius: initial !important; border-inline: initial !important; border-start-end-radius: initial !important; border-start-start-radius: initial !important; bottom: initial !important; box-decoration-break: initial !important; box-shadow: none !important; box-sizing: initial !important; break-after: initial !important; break-before: initial !important; break-inside: initial !important; buffered-rendering: initial !important; caption-side: initial !important; caret-color: initial !important; clear: initial !important; clip: initial !important; clip-path: initial !important; clip-rule: initial !important; color-interpolation: initial !important; color-interpolation-filters: initial !important; color-rendering: initial !important; columns: initial !important; column-fill: initial !important; gap: initial !important; column-rule: initial !important; column-span: initial !important; contain: initial !important; contain-intrinsic-block-size: initial !important; contain-intrinsic-size: initial !important; contain-intrinsic-inline-size: initial !important; container: initial !important; content: initial !important; content-visibility: initial !important; counter-increment: initial !important; counter-reset: initial !important; counter-set: initial !important; cursor: inherit !important; cx: initial !important; cy: initial !important; d: initial !important; display: inline !important; dominant-baseline: initial !important; dynamic-range-limit: initial !important; empty-cells: initial !important; field-sizing: initial !important; fill: rgb(255, 255, 255) !important; fill-opacity: initial !important; fill-rule: initial !important; filter: initial !important; flex: initial !important; flex-flow: initial !important; float: none !important; flood-color: initial !important; flood-opacity: initial !important; grid: initial !important; grid-area: initial !important; height: initial !important; hyphenate-character: initial !important; hyphenate-limit-chars: initial !important; hyphens: initial !important; image-orientation: initial !important; image-rendering: initial !important; initial-letter: initial !important; inline-size: initial !important; inset-block: initial !important; inset-inline: initial !important; interpolate-size: initial !important; isolation: initial !important; left: initial !important; letter-spacing: initial !important; lighting-color: initial !important; line-break: initial !important; list-style: initial !important; margin-block: initial !important; margin: 0px !important; margin-inline: initial !important; marker: initial !important; mask-type: initial !important; math-shift: initial !important; math-style: initial !important; max-block-size: initial !important; max-height: initial !important; max-inline-size: initial !important; max-width: initial !important; min-block-size: initial !important; min-height: initial !important; min-inline-size: initial !important; min-width: initial !important; mix-blend-mode: initial !important; object-fit: initial !important; object-position: initial !important; object-view-box: initial !important; offset: initial !important; opacity: initial !important; order: initial !important; orphans: initial !important; outline: 0px !important; outline-offset: initial !important; overflow-anchor: initial !important; overflow-block: initial !important; overflow-clip-margin: initial !important; overflow-inline: initial !important; overflow-wrap: initial !important; overflow: initial !important; overlay: initial !important; overscroll-behavior-block: initial !important; overscroll-behavior-inline: initial !important; overscroll-behavior: initial !important; padding-block: initial !important; padding: 0px !important; padding-inline: initial !important; page: initial !important; page-orientation: initial !important; paint-order: initial !important; perspective: initial !important; perspective-origin: initial !important; pointer-events: initial !important; position-try: initial !important; position-visibility: initial !important; print-color-adjust: initial !important; quotes: initial !important; r: initial !important; resize: initial !important; right: initial !important; rotate: initial !important; ruby-align: initial !important; ruby-position: initial !important; rx: initial !important; ry: initial !important; scale: initial !important; scroll-behavior: initial !important; scroll-initial-target: initial !important; scroll-margin-block: initial !important; scroll-margin: initial !important; scroll-margin-inline: initial !important; scroll-marker-group: initial !important; scroll-padding-block: initial !important; scroll-padding: initial !important; scroll-padding-inline: initial !important; scroll-snap-align: initial !important; scroll-snap-stop: initial !important; scroll-snap-type: initial !important; scroll-timeline: initial !important; scrollbar-color: initial !important; scrollbar-gutter: initial !important; scrollbar-width: initial !important; shape-image-threshold: initial !important; shape-margin: initial !important; shape-outside: initial !important; shape-rendering: initial !important; size: initial !important; speak: initial !important; stop-color: initial !important; stop-opacity: initial !important; stroke: initial !important; stroke-dasharray: initial !important; stroke-dashoffset: initial !important; stroke-linecap: initial !important; stroke-linejoin: initial !important; stroke-miterlimit: initial !important; stroke-opacity: initial !important; stroke-width: initial !important; tab-size: initial !important; table-layout: initial !important; text-align: initial !important; text-align-last: initial !important; text-anchor: initial !important; text-box: initial !important; text-combine-upright: initial !important; text-decoration: initial !important; text-decoration-skip-ink: initial !important; text-emphasis: initial !important; text-emphasis-position: initial !important; text-indent: initial !important; text-overflow: initial !important; text-shadow: initial !important; text-transform: initial !important; text-underline-offset: initial !important; text-underline-position: initial !important; text-wrap: initial !important; timeline-scope: initial !important; top: 3px !important; touch-action: initial !important; transform: initial !important; transform-box: initial !important; transform-origin: initial !important; transform-style: initial !important; transition: initial !important; translate: initial !important; user-select: initial !important; vector-effect: initial !important; vertical-align: initial !important; view-timeline: initial !important; view-transition-class: initial !important; view-transition-name: initial !important; visibility: initial !important; border-spacing: initial !important; -webkit-box-align: initial !important; -webkit-box-decoration-break: initial !important; -webkit-box-direction: initial !important; -webkit-box-flex: initial !important; -webkit-box-ordinal-group: initial !important; -webkit-box-orient: initial !important; -webkit-box-pack: initial !important; -webkit-box-reflect: initial !important; -webkit-line-break: initial !important; -webkit-line-clamp: initial !important; -webkit-mask-box-image: initial !important; -webkit-rtl-ordering: initial !important; -webkit-ruby-position: initial !important; -webkit-tap-highlight-color: initial !important; -webkit-text-combine: initial !important; -webkit-text-decorations-in-effect: initial !important; -webkit-text-fill-color: unset !important; -webkit-text-security: initial !important; -webkit-text-stroke: initial !important; -webkit-user-drag: initial !important; white-space-collapse: initial !important; widows: initial !important; width: initial !important; will-change: initial !important; word-break: initial !important; word-spacing: initial !important; x: initial !important; y: initial !important; z-index: initial !important;"><path d="m456-200 174-340H510v-220L330-420h126v220Zm24 120q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg></span><span style="color-scheme: initial !important; forced-color-adjust: initial !important; mask: initial !important; math-depth: initial !important; position: relative !important; position-anchor: initial !important; text-size-adjust: initial !important; appearance: initial !important; color: inherit !important; direction: inherit !important; font-family: inherit !important; font-feature-settings: initial !important; font-kerning: initial !important; font-optical-sizing: initial !important; font-palette: initial !important; font-size: inherit !important; font-size-adjust: initial !important; font-stretch: initial !important; font-style: initial !important; font-synthesis: initial !important; font-variant: initial !important; font-variation-settings: initial !important; font-weight: inherit !important; position-area: initial !important; text-orientation: inherit !important; text-rendering: initial !important; text-spacing-trim: initial !important; -webkit-font-smoothing: initial !important; -webkit-locale: initial !important; -webkit-text-orientation: initial !important; -webkit-writing-mode: initial !important; writing-mode: inherit !important; zoom: initial !important; accent-color: initial !important; place-content: initial !important; place-items: initial !important; place-self: initial !important; alignment-baseline: initial !important; anchor-name: initial !important; anchor-scope: initial !important; animation-composition: initial !important; animation: initial !important; app-region: initial !important; aspect-ratio: initial !important; backdrop-filter: initial !important; backface-visibility: initial !important; background: initial !important; background-blend-mode: initial !important; baseline-shift: initial !important; baseline-source: initial !important; block-size: initial !important; border-block: initial !important; border: initial !important; border-radius: initial !important; border-collapse: initial !important; border-end-end-radius: initial !important; border-end-start-radius: initial !important; border-inline: initial !important; border-start-end-radius: initial !important; border-start-start-radius: initial !important; bottom: initial !important; box-decoration-break: initial !important; box-shadow: initial !important; box-sizing: initial !important; break-after: initial !important; break-before: initial !important; break-inside: initial !important; buffered-rendering: initial !important; caption-side: initial !important; caret-color: initial !important; clear: initial !important; clip: initial !important; clip-path: initial !important; clip-rule: initial !important; color-interpolation: initial !important; color-interpolation-filters: initial !important; color-rendering: initial !important; columns: initial !important; column-fill: initial !important; gap: initial !important; column-rule: initial !important; column-span: initial !important; contain: initial !important; contain-intrinsic-block-size: initial !important; contain-intrinsic-size: initial !important; contain-intrinsic-inline-size: initial !important; container: initial !important; content: initial !important; content-visibility: initial !important; counter-increment: initial !important; counter-reset: initial !important; counter-set: initial !important; cursor: inherit !important; cx: initial !important; cy: initial !important; d: initial !important; display: initial !important; dominant-baseline: initial !important; dynamic-range-limit: initial !important; empty-cells: initial !important; field-sizing: initial !important; fill: initial !important; fill-opacity: initial !important; fill-rule: initial !important; filter: initial !important; flex: initial !important; flex-flow: initial !important; float: initial !important; flood-color: initial !important; flood-opacity: initial !important; grid: initial !important; grid-area: initial !important; height: initial !important; hyphenate-character: initial !important; hyphenate-limit-chars: initial !important; hyphens: initial !important; image-orientation: initial !important; image-rendering: initial !important; initial-letter: initial !important; inline-size: initial !important; inset-block: initial !important; inset-inline: initial !important; interpolate-size: initial !important; isolation: initial !important; left: 3px !important; letter-spacing: initial !important; lighting-color: initial !important; line-break: initial !important; line-height: initial !important; list-style: initial !important; margin-block: initial !important; margin: initial !important; margin-inline: initial !important; marker: initial !important; mask-type: initial !important; math-shift: initial !important; math-style: initial !important; max-block-size: initial !important; max-height: initial !important; max-inline-size: initial !important; max-width: initial !important; min-block-size: initial !important; min-height: initial !important; min-inline-size: initial !important; min-width: initial !important; mix-blend-mode: initial !important; object-fit: initial !important; object-position: initial !important; object-view-box: initial !important; offset: initial !important; opacity: initial !important; order: initial !important; orphans: initial !important; outline: initial !important; outline-offset: initial !important; overflow-anchor: initial !important; overflow-block: initial !important; overflow-clip-margin: initial !important; overflow-inline: initial !important; overflow-wrap: initial !important; overflow: initial !important; overlay: initial !important; overscroll-behavior-block: initial !important; overscroll-behavior-inline: initial !important; overscroll-behavior: initial !important; padding-block: initial !important; padding-bottom: initial !important; padding-inline: initial !important; padding-left: initial !important; padding-right: 6px !important; padding-top: initial !important; page: initial !important; page-orientation: initial !important; paint-order: initial !important; perspective: initial !important; perspective-origin: initial !important; pointer-events: initial !important; position-try: initial !important; position-visibility: initial !important; print-color-adjust: initial !important; quotes: initial !important; r: initial !important; resize: initial !important; right: initial !important; rotate: initial !important; ruby-align: initial !important; ruby-position: initial !important; rx: initial !important; ry: initial !important; scale: initial !important; scroll-behavior: initial !important; scroll-initial-target: initial !important; scroll-margin-block: initial !important; scroll-margin: initial !important; scroll-margin-inline: initial !important; scroll-marker-group: initial !important; scroll-padding-block: initial !important; scroll-padding: initial !important; scroll-padding-inline: initial !important; scroll-snap-align: initial !important; scroll-snap-stop: initial !important; scroll-snap-type: initial !important; scroll-timeline: initial !important; scrollbar-color: initial !important; scrollbar-gutter: initial !important; scrollbar-width: initial !important; shape-image-threshold: initial !important; shape-margin: initial !important; shape-outside: initial !important; shape-rendering: initial !important; size: initial !important; speak: initial !important; stop-color: initial !important; stop-opacity: initial !important; stroke: initial !important; stroke-dasharray: initial !important; stroke-dashoffset: initial !important; stroke-linecap: initial !important; stroke-linejoin: initial !important; stroke-miterlimit: initial !important; stroke-opacity: initial !important; stroke-width: initial !important; tab-size: initial !important; table-layout: initial !important; text-align: inherit !important; text-align-last: initial !important; text-anchor: initial !important; text-box: initial !important; text-combine-upright: initial !important; text-decoration: initial !important; text-decoration-skip-ink: initial !important; text-emphasis: initial !important; text-emphasis-position: initial !important; text-indent: initial !important; text-overflow: initial !important; text-shadow: initial !important; text-transform: initial !important; text-underline-offset: initial !important; text-underline-position: initial !important; text-wrap: initial !important; timeline-scope: initial !important; top: initial !important; touch-action: initial !important; transform: initial !important; transform-box: initial !important; transform-origin: initial !important; transform-style: initial !important; transition: initial !important; translate: initial !important; user-select: initial !important; vector-effect: initial !important; vertical-align: initial !important; view-timeline: initial !important; view-transition-class: initial !important; view-transition-name: initial !important; visibility: inherit !important; border-spacing: initial !important; -webkit-box-align: initial !important; -webkit-box-decoration-break: initial !important; -webkit-box-direction: initial !important; -webkit-box-flex: initial !important; -webkit-box-ordinal-group: initial !important; -webkit-box-orient: initial !important; -webkit-box-pack: initial !important; -webkit-box-reflect: initial !important; -webkit-line-break: initial !important; -webkit-line-clamp: initial !important; -webkit-mask-box-image: initial !important; -webkit-rtl-ordering: initial !important; -webkit-ruby-position: initial !important; -webkit-tap-highlight-color: initial !important; -webkit-text-combine: initial !important; -webkit-text-decorations-in-effect: initial !important; -webkit-text-fill-color: unset !important; -webkit-text-security: initial !important; -webkit-text-stroke: initial !important; -webkit-user-drag: initial !important; white-space-collapse: initial !important; widows: initial !important; width: initial !important; will-change: initial !important; word-break: initial !important; word-spacing: initial !important; x: initial !important; y: initial !important; z-index: initial !important;">Gaming consoles</span></div></div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      async function sendAPICommandAsync(command) {
+          try {
+              const xuid = localStorage.getItem("userXUID");
+              const token = localStorage.getItem("authToken");
+
+              if (!xuid || !token) {
+                  showToast("Missing Authentication Details.");
+                  return;
+              }
+
+              const response = await fetch(`https://ax1s.vercel.app/api/${command}/?xuid=${xuid}&token=${token}`, {
+                  method: "GET",
+                  headers: { "Accept": "application/json" }
+              });
+
+              const result = await response.json();
+              console.log("Full API Response:", result);
+
+              let message = result?.message ?? result?.error ?? "Unexpected response";
+
+              showToast(message);
+
+              return message;
+          } catch (error) {
+              console.error("Error sending API command", error);
+              showToast("Error sending API command.");
+          }
+      }
+
+      function showToast(message) {
+          var toast = document.getElementById("toast");
+          var desc = document.getElementById("desc");
+
+          if (!toast || !desc) {
+              console.error("Toast elements are missing in the HTML.");
+              return;
+          }
+          let messageElement = desc.querySelector("p span");
+          if (messageElement) {
+              messageElement.innerText = message;
+          } else {
+              console.error("Message span element is missing in toast.");
+          }
+
+          toast.classList.add("show");
+
+          setTimeout(() => {
+              toast.classList.remove("show");
+          }, 5000);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll("[data-api-command]").forEach(button => {
+              button.addEventListener("click", function (event) {
+                  event.preventDefault(); 
+                  let command = this.getAttribute("data-api-command");
+                  sendAPICommandAsync(command);
+              });
+          });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const authButton = document.getElementById('devicecodebtn');
+          const authList = document.getElementById("device-auth-info");
+      
+          if (authButton) {
+              authButton.addEventListener("click", function(event) {
+                  event.preventDefault(); // Prevent the default button behavior
+      
+                  fetch("/api/deviceauth/")
+                      .then(response => response.json())
+                      .then(data => {
+                          parseAuthData(data);
+                      })
+                      .catch(error => {
+                          console.log("Error connecting to the server.");
+                          console.error("Error fetching device auth:", error);
+                      });
+              });
+          }
+      
+          function parseAuthData(data) {
+              if (data.user_code && data.verification_uri) {
+                  const listItem = document.createElement("li");
+                  listItem.innerHTML = `
+                      <p style='color: white;'><strong>User Code:</strong> ${data.user_code}</p>
+                      <a style='color: white;' href="${data.verification_uri}" target="_blank">Oauth Link</a>
+                  `;
+                  authList.appendChild(listItem);
+              } else {
+                authInfoDiv.innerHTML = "<p style='color: white;'>Failed to fetch authentication details.</p>";
+              }
+          }
+      });
+    </script>
+    <script>
+      document.getElementById('Gamespoof').addEventListener('submit', function(e) {
+        e.preventDefault();
+      
+        var gameid = document.getElementById('gameid').value;
+        var xuid = localStorage.getItem('userXUID');
+        var token = localStorage.getItem('authToken');
+      
+        if (!xuid) {
+          console.log("No userXUID found in local storage. Request not sent.");
+          return;
+        }
+      
+        if (!token) {
+          console.log("No authToken found in local storage. Request not sent.");
+          return;
+        }
+      
+        var url = "https://ax1s.vercel.app/api/xboxspoofgameactivity?xuid=" 
+                  + encodeURIComponent(xuid) + "&token=" 
+                  + encodeURIComponent(token) + "&gameid=" 
+                  + encodeURIComponent(gameid);
+      
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok: " + response.statusText);
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Request successful. Response data:", data);
+          })
+          .catch(error => {
+            console.error("There was a problem with the request:", error);
+          });
+      });
+    </script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const authForm = document.querySelector("form[action='/']");
+        if (authForm) {
+          authForm.addEventListener("submit", function() {
+            const gamertagInput = document.getElementById("gamertag");
+            if (gamertagInput) {
+              gamertagInput.value = gamertagInput.value.replace(/#/g, "");
+            }
+          });
+        }
+      
+        const tokenInput = document.getElementById("xblToken");
+        if (tokenInput) {
+          tokenInput.addEventListener("input", function() {
+            this.value = this.value.replace(/authorization: /gi, "");
+          });
+        }
+      });
+    </script>
+    
+    <iframe name="googlefcPresent" style="width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px; display: none;"></iframe><script src="assets/js/coreold.js"></script>
+    <script src="https://ax1s.vercel.app/assets/js/notification.js"></script>
+    <script src="https://ax1s.vercel.app/assets/js/core.js"></script>
 </body></html>
