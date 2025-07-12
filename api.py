@@ -13,7 +13,7 @@ def list_ids():
     except FileNotFoundError:
         return Response("ban-list.txt not found.", mimetype='text/plain')
 
-@app.route('/check', methods=['GET'])
+@app.route('/check', methods=['POST'])
 def check():
     user_id = request.headers.get('X-User-ID')
     if not user_id:
@@ -35,7 +35,7 @@ def check():
     except FileNotFoundError:
         return "ban-list.txt not found.", 500
 
-@app.route('/add', methods=['GET'])
+@app.route('/add', methods=['POST'])
 def add():
     token = request.headers.get('X-Admin-Token')
     user_id = request.headers.get('X-User-ID')
@@ -50,7 +50,7 @@ def add():
     else:
         return "Wrong token.", 403
 
-@app.route('/remove', methods=['GET'])
+@app.route('/remove', methods=['POST'])
 def remove():
     token = request.headers.get('X-Admin-Token')
     user_id = request.headers.get('X-User-ID')
