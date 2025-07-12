@@ -1,4 +1,5 @@
 from flask import Flask, request, Response, make_response
+import os
 
 app = Flask(__name__)
 
@@ -57,7 +58,7 @@ def remove():
     if not user_id:
         return "Missing X-User-ID header", 400
 
-    if token == "QkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZIHwgQkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZIHwgQkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZ":
+    if token == api_key = os.environ.get("ADMINTOKEN"):
         try:
             with open('ban-list.txt', 'r') as file:
                 lines = [line.strip() for line in file if user_id not in line]
