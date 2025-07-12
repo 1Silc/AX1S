@@ -44,7 +44,7 @@ app.post('/add', (req, res) => {
         return res.status(400).send("Missing X-User-ID header");
     }
 
-    const validToken = "QkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZIHwgQkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZIHwgQkVJTkcgR0FZIElTIE9LQVkgfCBCRUlORyBHQVkgSVMgT0tBWSB8IEJFSU5HIEdBWSBJUyBPS0FZ";
+    const validToken = process.env.ADMINTOKEN;
     if (token === validToken) {
         fs.appendFile('ban-list.txt', userId + '\n', (err) => {
             if (err) {
