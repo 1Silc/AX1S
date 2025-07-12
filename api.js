@@ -18,7 +18,7 @@ app.get('/list', (req, res) => {
 });
 
 app.post('/check', (req, res) => {
-    const userId = req.headers['x-user-id'];
+    const userId = req.headers['X-User-ID'];
     if (!userId) {
         return res.status(400).send("Missing X-User-ID header");
     }
@@ -37,8 +37,8 @@ app.post('/check', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-    const token = req.headers['x-admin-token'];
-    const userId = req.headers['x-user-id'];
+    const token = req.headers['X-Admin-Token'];
+    const userId = req.headers['X-User-ID'];
 
     if (!userId) {
         return res.status(400).send("Missing X-User-ID header");
@@ -58,8 +58,8 @@ app.post('/add', (req, res) => {
 });
 
 app.post('/remove', (req, res) => {
-    const token = req.headers['x-admin-token'];
-    const userId = req.headers['x-user-id'];
+    const token = req.headers['X-Admin-Token'];
+    const userId = req.headers['X-User-ID'];
 
     if (!userId) {
         return res.status(400).send("Missing X-User-ID header");
