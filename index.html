@@ -9,18 +9,30 @@
       padding: 20px;
       max-width: 600px;
       margin: auto;
+      background-color: #000;
+      color: #fff;
     }
-    input, button {
+    input, button, textarea {
       margin: 5px 0;
       padding: 10px;
       width: 100%;
       font-size: 1em;
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #444;
     }
     textarea {
-      width: 100%;
       height: 150px;
-      margin-top: 10px;
       font-family: monospace;
+    }
+    button {
+      cursor: pointer;
+    }
+    hr {
+      border-color: #444;
+    }
+    div {
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -83,7 +95,7 @@
       });
       const text = await res.text();
       document.getElementById('addResult').textContent = text;
-      fetchList(); // Refresh the list
+      fetchList(); // Refresh list
     }
 
     async function removeID() {
@@ -97,7 +109,7 @@
       });
       const text = await res.text();
       document.getElementById('removeResult').textContent = text;
-      fetchList(); // Refresh the list
+      fetchList(); // Refresh list
     }
   </script>
 </body>
