@@ -19,10 +19,7 @@ app.get('/list', (req, res) => {
 
 app.post('/check', (req, res) => {
     const userId = req.headers['X-User-ID'];
-    if (!userId) {
-        return res.status(400).send("Missing X-User-ID header");
-    }
-
+    
     fs.readFile('ban-list.txt', 'utf8', (err, data) => {
         if (err) {
             if (err.code === 'ENOENT') {
@@ -40,10 +37,6 @@ app.post('/add', (req, res) => {
     const token = req.headers['X-Admin-Token'];
     const userId = req.headers['X-User-ID'];
 
-    if (!userId) {
-        return res.status(400).send("Missing X-User-ID header");
-    }
-
     const validToken = process.env.ADMINTOKEN;
     if (token === validToken) {
         fs.appendFile('ban-list.txt', userId + '\n', (err) => {
@@ -60,11 +53,7 @@ app.post('/add', (req, res) => {
 app.post('/remove', (req, res) => {
     const token = req.headers['X-Admin-Token'];
     const userId = req.headers['X-User-ID'];
-
-    if (!userId) {
-        return res.status(400).send("Missing X-User-ID header");
-    }
-
+    
     const apiKey = process.env.ADMINTOKEN;
     if (token === apiKey) {
         fs.readFile('ban-list.txt', 'utf8', (err, data) => {
