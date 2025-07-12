@@ -67,14 +67,14 @@
 
   <script>
     async function fetchList() {
-      const res = await fetch('/list');
+      const res = await fetch('/api/list');
       const text = await res.text();
       document.getElementById('banList').value = text;
     }
 
     async function checkID() {
       const id = document.getElementById('checkID').value;
-      const res = await fetch('/check', {
+      const res = await fetch('/api/check', {
         headers: {
           'X-User-ID': id
         }
@@ -87,7 +87,7 @@
     async function addID() {
       const id = document.getElementById('addID').value;
       const token = document.getElementById('addToken').value;
-      const res = await fetch('/add', {
+      const res = await fetch('/api/add', {
         headers: {
           'X-User-ID': id,
           'X-Admin-Token': token
@@ -101,7 +101,7 @@
     async function removeID() {
       const id = document.getElementById('removeID').value;
       const token = document.getElementById('removeToken').value;
-      const res = await fetch('/remove', {
+      const res = await fetch('/api/remove', {
         headers: {
           'X-User-ID': id,
           'X-Admin-Token': token
