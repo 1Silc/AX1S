@@ -31,7 +31,7 @@ app.post('/check', (req, res) => {
             return res.status(500).send("Internal Server Error");
         }
         const isListed = data.includes(userId);
-        res.set('X-Is-Listed', isListed ? 'True' : 'False');
+        res.set("Z-Is-Listed', isListed ? 'True' : 'False');
         res.status(isListed ? 200 : 404).send(isListed.toString());
     });
 });
