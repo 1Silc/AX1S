@@ -1,5 +1,4 @@
 {
-  "applicationSettings": {
     "AndroidEnableBinaryChannels": "true",
     "DFFlagConsumePlatformNameOverAlternateName": "False",
     "DFFlagDebugEnableRemoteProfiling2": "True",
@@ -12804,5 +12803,4 @@
     "DFStringFlagRepoGitHashDynamicString": "37106a5e93e8b548366dcb97dcd4713df632ea3d",
     "FStringFlipTimeStampFastString": "2025-08-13T00:54:59.809Z",
     "DFStringFlipTimeStampDynamicString": "2025-08-13T00:54:59.809Z"
-  }
 }
